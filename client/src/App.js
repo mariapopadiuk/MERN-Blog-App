@@ -1,10 +1,11 @@
+import Main from "./view/Main.js";
 
 function App() {
   return (
-    <div className="App">
-      <h1 class="text-3xl underline">
-        Hello world!
-      </h1>
+    <div className="App ">
+
+      <Main />
+     
     </div>
   );
 }

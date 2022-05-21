@@ -1,7 +1,16 @@
 module.exports = {
-  content: ["./src/**/*.{html,js}"],
+  content: [
+    "./src/**/*.{js,jsx}",
+  ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        // Configure your color palette here
+        'green': '#2A3E35',
+        'gold': '#A48957',
+        'bege': '#F7F3EC',
+      },
+    },
   },
   plugins: [],
 }
