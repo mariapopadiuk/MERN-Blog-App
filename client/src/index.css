@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.font-serif {
+  font-family: 'Playfair Display';
+}  
+
+.bg-bgImage{
+  background-image: url("img/bgimg.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 300px;
+}
+
+.bg-bgImageLogin {
+  background-image: url("img/bgimg.png");
+  background-size: cover;
+background-position: right center;
+}
