@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import Main from './view/Main';
 import Login from './view/Login';
+import ItemPreview from './view/ItemPreview';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom'; 
 
@@ -13,7 +14,7 @@ root.render(
       <Routes>
         <Route exact path="/" element={<Main />} />
         <Route path="/login" element={<Login />} />
-        {/* <Route path="/view/id=:id" element={<MoviePreview />} /> */}
+        <Route path="/itempreview/id=:id" element={<ItemPreview />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

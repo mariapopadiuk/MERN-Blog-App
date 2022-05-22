@@ -15,11 +15,11 @@ export default function Login() {
      Are you Admin?
       </div>
 
-        <div class="container  mx-auto p-6 mt-10  max-w-sm text-3xl text-left ">
+        <div className="container  mx-auto p-6 mt-10  max-w-sm text-3xl text-left ">
         <form>
-          <div class=" form-group mb-6 ">
-            <label for="exampleInputEmail1" class="text-left form-label mb-2 text-green">Name*</label>
-            <input type="email" class="form-control
+            <div className=" form-group mb-6 ">
+              <label htmlFor="exampleInputEmail1" className="text-left form-label mb-2 text-green">Name*</label>
+              <input type="email" className="form-control
        
         w-full
         px-3
@@ -37,9 +37,9 @@ export default function Login() {
     placeholder="Enter your name"/>
              
           </div>
-          <div class="form-group mb-6">
-            <label for="exampleInputPassword1" class="form-label inline-block mb-2 text-green">Password*</label>
-            <input type="password" class="form-control block
+            <div className="form-group mb-6">
+              <label htmlFor="exampleInputPassword1" className="form-label inline-block mb-2 text-green">Password*</label>
+              <input type="password" className="form-control block
         w-full
         px-3
         py-1.5
@@ -57,7 +57,7 @@ export default function Login() {
           </div>
     
     <div className='text-center'> 
-          <button  type="submit" class="
+              <button type="submit" className="
       px-6
       py-2.5
       bg-green
