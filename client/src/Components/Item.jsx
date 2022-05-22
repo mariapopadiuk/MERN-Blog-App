@@ -22,7 +22,5 @@ export default function Item( {img, title, text, subText, id, date}) {
           </span>
           </div>
       </div>
-
-     
    )
 }

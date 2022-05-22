@@ -19,8 +19,7 @@ export default function Main () {
     <Item id={b.id} img={b.img} key={i} title={b.title} text={b.text} subText={b.subText} date={b.date}/>
   ))
 }
-      </section>
-
+      </section> 
       <Footer />
     </div>
   )
