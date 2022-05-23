@@ -26,13 +26,19 @@ export default function Login() {
     }
 
     if (formValue.password === '') {
-      toast.error("password!");
+      toast.error("Please enter you password!");
  
+      return false
+    }
+
+    if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/.test(formValue.password)) {
+      toast.error("Invalid password!");
+
       return false
     }
     
     setformValue({
-      username: '',
+      email: '',
       password: '',
     })
 
