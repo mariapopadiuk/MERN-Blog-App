@@ -13,11 +13,18 @@ export default function Login() {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(123);
-    if (formValue.username === '') {
-      toast.error("username!");
+    if (formValue.email === '') {
+      toast.error("Please enter your email!");
       
       return false
     }
+
+    if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(formValue.email)) {
+      toast.error("Invalid email!");
+
+      return false
+    }
+
     if (formValue.password === '') {
       toast.error("password!");
  
@@ -57,8 +64,8 @@ export default function Login() {
         <div className="container  mx-auto p-6 mt-10  max-w-sm text-3xl text-left ">
           <form >
             <div className=" form-group mb-6 ">
-              <label  className="text-left form-label mb-2 text-green">Name*</label>
-              <input name={'username'} value={formValue.username} onChange={handleChange} type="text" className="form-control w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" placeholder="Enter your name"/>
+              <label  className="text-left form-label mb-2 text-green">Email*</label>
+              <input name={'email'} value={formValue.email} onChange={handleChange} type="email" className="form-control w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" placeholder="Enter your email"/>
             </div>
 
             <div className="form-group mb-6">
