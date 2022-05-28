@@ -1,12 +1,13 @@
 const express = require('express')
 const app = express()
 require('dotenv').config()
+const bcrypt = require('bcrypt')
 const port = 4000
 
 app.get('/api', (req, res) => {
-  res.send("[{ title: '123', tex: 'sex', id: 1 }, { title: '123', tex: 'sex', id: 2 }, { title: '123', tex: 'sex', id: 3 }]")
+  res.send("hello world")
 })
-
+//databese connection
 app.listen(port, () => {
   console.log(`Example   app listening on port ${port}`)
 })
@@ -21,9 +22,9 @@ var connection = mysql.createConnection({
 
 connection.connect();
 
-connection.query('select * from users', function (error, results, fields) {
+connection.query('select * from users', function (error, result, fields) {
   if (error) throw error;
-  console.log('users sao: ', results);
+  console.log(result);
 });
 
 connection.end();
