@@ -1,7 +1,5 @@
 const connection = require('../../services/db')
 
-
-
 module.exports = async (req, res) => {
   try {
     const id = req.params.id
