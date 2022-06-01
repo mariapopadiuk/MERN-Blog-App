@@ -4,6 +4,7 @@ import Header from '../Components/Header'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+
 export default function Login() {
   
  const [formValue, setformValue] = useState({
@@ -56,7 +57,7 @@ export default function Login() {
   return (
     <>
       <Header />
-      <div className='container mx-auto font-serif bg-bgImageLogin text-5xl font-bold text-green tracking-normal text-center h-screen'>
+      <div className='container mx-auto font-serif bg-additem text-5xl font-bold text-green tracking-normal text-center h-screen'>
         <div className='container p-20'>
           MERN App
         </div>
