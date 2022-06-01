@@ -18,3 +18,9 @@
   background-size: cover;
 background-position: right center;
 }
+
+.bg-additem {
+  background-image: url("img/bgitem.jpg");
+    /* background-size: cover; */
+      background-position: right center;
+}

@@ -11,6 +11,8 @@ export default function Header() {
       <div className='text-base text-white flex items-center '>
         <Link to="/" className='mr-8 no-underline hover:underline decoration-gold decoration-2 underline-offset-4'>HOME</Link >
         <Link to="/login" className='mr-10 no-underline hover:underline decoration-gold decoration-2 underline-offset-4'>LOGIN</Link>
+        <Link to="/addnewitem" className='mr-10 no-underline hover:underline decoration-gold decoration-2 underline-offset-4'>ADD NEW ITEM</Link>
+
       </div>
     </header>
   )

@@ -15,7 +15,6 @@ export default function Login() {
     console.log(123);
     if (formValue.email === '') {
       toast.error("Please enter your email!");
-      
       return false
     }
 
