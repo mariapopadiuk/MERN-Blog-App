@@ -1,5 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { FaTrash } from "react-icons/fa";
+
 
 export default function Item( {img, title, text, subText, id, date}) {
   return (
@@ -8,6 +10,7 @@ export default function Item( {img, title, text, subText, id, date}) {
       duration-500">
         <img className="w-full" src={img} alt="Sunset in the mountains"/>
           <div className="px-6 py-4">
+            
             <div className="font-bold text-gold text-xl mb-2">{title}</div>
           <p className="text-gray-600 leading-relaxed text-base h-20 overflow-hidden">
               {text}
@@ -19,6 +22,9 @@ export default function Item( {img, title, text, subText, id, date}) {
             </span>
         <span className='text-gold  drop-shadow-lg'>
             {date}
+          </span>
+          <span>
+          <a href="#" className='pr-3 text-gold hover:text-red-600 transition'><FaTrash /></a >
           </span>
           </div>
       </div>
