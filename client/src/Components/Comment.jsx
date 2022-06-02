@@ -2,7 +2,7 @@ import React from 'react'
 import { FaTrash } from 'react-icons/fa'
 
 
-export default function Comment({ name, date, text }) {
+export default function Comment({ name, date, text, isadmin }) {
 
   return (
 
@@ -15,7 +15,11 @@ export default function Comment({ name, date, text }) {
           {text}
         </div>
         <div className='flex justify-between'>
-          <FaTrash className='mr-5 text-gold hover:text-red-600 transition cursor-pointer' />
+          {
+            isadmin
+            &&
+            <FaTrash className='mr-5 text-gold hover:text-red-600 transition cursor-pointer' />
+          }
         </div>
       </p>
     </div>
