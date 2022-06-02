@@ -7,6 +7,8 @@ import Comment from '../Components/Comment';
 import { comments } from '../comments';
 import img from '../img/bgitem.jpg'
 import { FaCheck, FaEdit } from 'react-icons/fa'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -18,12 +20,52 @@ export default function ItemPreview() {
   const [titleEditable, setTitleEditable] = useState(false);
   const [textEditable, setTextEditable] = useState(false);
 
+  
+// Form Validation
+  const [formValue, setformValue] = useState({
+    username: '',
+    text: '',
+  })
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(123);
+    if (formValue.username === '') {
+      toast.error("Please enter your Name!");
+      return false
+    }
+
+    if (formValue.text === '') {
+      toast.error("Please enter you message!");
+
+      return false
+    }
+
+    setformValue({
+      username: '',
+      text: '',
+    })
+
+    toast.success("Comment added! Thank you");
+  }
+
+
+  const handleChange = (event) => {
+    // console.log(2345);
+    setformValue({
+      ...formValue,
+      [event.target.name]: event.target.value
+    });
+  }
+
+
 
 
 
   return (
     <>
       <Header />
+      <ToastContainer position="top-left" />
+
       <section className='container font-serif mx-auto bg-bege tracking-wide'>
 
         <div>
@@ -76,13 +118,13 @@ export default function ItemPreview() {
 
         <form className="rounded ml-40 w-1/4">
           <div className="mb-4">
-            <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" type="text" placeholder="Name" />
+            <input name={'username'} value={formValue.username} onChange={handleChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" type="text" placeholder="Name" />
           </div>
           <div>
-            <textarea className="shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="text" type="text" placeholder="Comment" />
+            <textarea name={'text'} value={formValue.text} onChange={handleChange} className="shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="text" type="text" placeholder="Comment" />
           </div>
           <div className="flex items-center justify-between pb-5">
-            <button className="bg-gold hover:bg-green text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+            <button onClick={(e) => handleSubmit(e)} className="bg-gold hover:bg-green text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
               Submit
             </button>
           </div>

@@ -57,11 +57,12 @@ export default function Login() {
   return (
     <>
       <Header />
+      <ToastContainer position="top-left" />
+
       <div className='container mx-auto font-serif bg-additem text-5xl font-bold text-green tracking-normal text-center h-screen'>
         <div className='container p-20'>
           MERN App
         </div>
-        <ToastContainer position="top-left" />
 
         <div>
           Are you Admin?
