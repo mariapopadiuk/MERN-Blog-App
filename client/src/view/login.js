@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import Footer from '../Components/Footer'
 import Header from '../Components/Header'
 import { ToastContainer, toast } from 'react-toastify';
@@ -6,11 +6,11 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 export default function Login() {
-  
- const [formValue, setformValue] = useState({
-   username: '',
-   password: '',
- })
+
+  const [formValue, setformValue] = useState({
+    username: '',
+    password: '',
+  })
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(123);
@@ -27,7 +27,7 @@ export default function Login() {
 
     if (formValue.password === '') {
       toast.error("Please enter you password!");
- 
+
       return false
     }
 
@@ -36,7 +36,7 @@ export default function Login() {
 
       return false
     }
-    
+
     setformValue({
       email: '',
       password: '',
@@ -57,11 +57,12 @@ export default function Login() {
   return (
     <>
       <Header />
+      <ToastContainer position="top-left" />
+
       <div className='container mx-auto font-serif bg-additem text-5xl font-bold text-green tracking-normal text-center h-screen'>
         <div className='container p-20'>
           MERN App
         </div>
-        <ToastContainer position="top-left" />
 
         <div>
           Are you Admin?
@@ -70,8 +71,8 @@ export default function Login() {
         <div className="container  mx-auto p-6 mt-10  max-w-sm text-3xl text-left ">
           <form >
             <div className=" form-group mb-6 ">
-              <label  className="text-left form-label mb-2 text-green">Email*</label>
-              <input name={'email'} value={formValue.email} onChange={handleChange} type="email" className="form-control w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" placeholder="Enter your email"/>
+              <label className="text-left form-label mb-2 text-green">Email*</label>
+              <input name={'email'} value={formValue.email} onChange={handleChange} type="email" className="form-control w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" placeholder="Enter your email" />
             </div>
 
             <div className="form-group mb-6">

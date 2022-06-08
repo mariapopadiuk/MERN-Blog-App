@@ -4,7 +4,7 @@ import Header from '../Components/Header'
 import Item from '../Components/Item'
 import Sidebar from '../Components/Sidebar'
 import { data } from '../bd'
-
+import img from '../img/bgitem.jpg'
 
 export default function Main () {
   // console.log(data)
@@ -16,7 +16,7 @@ export default function Main () {
 
 {
   data.map((b, i) => (
-    <Item id={b.id} img={b.img} key={i} title={b.title} text={b.text} subText={b.subText} date={b.date}/>
+    <Item id={b.id} img={img} key={i} title={b.title} text={b.text} subText={b.subText} date={b.date}/>
   ))
 }
       </section> 
