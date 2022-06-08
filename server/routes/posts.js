@@ -4,11 +4,12 @@ const getPostAction = require('../action/posts/getpost.action')
 const addPostAction = require('../action/posts/addpost.action')
 const updatePostAction = require('../action/posts/updatepost.action')
 const deletePostAction = require('../action/posts/deletepost.action')
+const authenticateJWT = require('../security/index');
 
 router.get('/', getPostsAction);
 router.get('/:id', getPostAction);
-router.post('/add-post', addPostAction);
-router.put('/update-post/:id', updatePostAction);
-router.delete('/delete-post/:id', deletePostAction);
+router.post('/add-post', authenticateJWT, addPostAction);
+router.put('/update-post/:id', authenticateJWT, updatePostAction);
+router.delete('/delete-post/:id', authenticateJWT, deletePostAction);
 
 module.exports = router;

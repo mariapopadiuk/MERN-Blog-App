@@ -4,11 +4,6 @@ import Header from '../Components/Header'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
-
-
-
-
 export default function AddItem() {
   return (
     <> 
@@ -19,7 +14,6 @@ export default function AddItem() {
           Add New Blog 
         </div>
         <ToastContainer position="top-left" />
-
 
         <div className="container mx-auto max-w-sm text-3xl text-left ">
           <form >
