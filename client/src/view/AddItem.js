@@ -4,10 +4,7 @@ import Header from '../Components/Header'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
 export default function AddItem() {
-
-
   const [formValue, setformValue] = useState({
     img: '',
     title: '',
@@ -41,17 +38,12 @@ export default function AddItem() {
 
     toast.success("Post added!");
   }
-
-
   const handleChange = (event) => {
     setformValue({
       ...formValue,
       [event.target.name]: event.target.value
     });
   }
-
-
-
 
   return (
     <> 
@@ -62,7 +54,6 @@ export default function AddItem() {
         <div className='container p-20'>
           Add New Blog 
         </div>
-
 
         <div className="container mx-auto max-w-sm text-3xl text-left ">
           <form >
