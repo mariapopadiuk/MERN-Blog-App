@@ -13,7 +13,6 @@ export default function Login() {
   })
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(123);
     if (formValue.email === '') {
       toast.error("Please enter your email!");
       return false
@@ -36,7 +35,6 @@ export default function Login() {
 
       return false
     }
-
     setformValue({
       email: '',
       password: '',
@@ -47,7 +45,6 @@ export default function Login() {
 
 
   const handleChange = (event) => {
-    // console.log(2345);
     setformValue({
       ...formValue,
       [event.target.name]: event.target.value
