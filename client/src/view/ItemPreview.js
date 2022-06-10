@@ -16,31 +16,42 @@ import axios from 'axios';
 
 export default function ItemPreview() {
   let { id } = useParams();
-  const { isAuthenticated} = useContext(Context);  
+  const { isAuthenticated } = useContext(Context);
   const [titleEditable, setTitleEditable] = useState(false);
   const [textEditable, setTextEditable] = useState(false);
-
-// Form Validation for comment
+  const [data, setData] = useState(null);
+  const [comments, setComments] = useState(null);
+  // Form Validation for comment
   const [formValue, setformValue] = useState({
-    username: '',
+    user_name: '',
     text: '',
+    date_created: '2022/06/10',
+      post_id: id
   })
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (formValue.username === '') {
+    if (formValue.user_name === '') {
       toast.error("Please enter your Name!");
       return false
     }
     if (formValue.text === '') {
       toast.error("Please enter you message!");
-
       return false
     }
 
-    setformValue({
-      username: '',
-      text: '',
-    })
+    axios.post(`http://localhost:4000/comments/add-comment/${id}`, formValue)
+      .then(function () {
+
+        setformValue({
+          user_name: '',
+          text: '',
+        })
+        toast.success("Comment added!");
+      })
+      .catch(function (error) {
+        toast.error(error.message);
+        return false
+      });
 
     toast.success("Comment added! Thank you");
   }
@@ -53,14 +64,12 @@ export default function ItemPreview() {
     });
   }
 
-
-  
-  const [data, setData] = useState(null);
   useEffect(() => {
-  axios.get(`http://localhost:4000/posts/${id}`).then((res) => setData(res.data[0]))
-  }, []);
-  console.log(data);
-   
+    axios.get(`http://localhost:4000/posts/${id}`).then((res) => setData(res.data[0]));
+    axios.get(`http://localhost:4000/comments/${id}`).then((res) => setComments(res.data))
+  }, [comments]);
+
+console.log(formValue);
 
   return (
     <>
@@ -100,18 +109,17 @@ export default function ItemPreview() {
             )
           }
         </p>
-           
+
 
         <p className='ml-40 text-left font-bold text-xl pb-5 '>
           Comments
         </p>
         {
-          comments.map((c, i) => {
-            if (c.postID === +id) {
-              return <Comment isadmin={isAuthenticated
-}  name={c.name} id={c.id} date={c.date} text={c.text} postID={c.postID} key={i} />
-            }
-          }
+          comments?.map((c, i) => (
+
+            <Comment isadmin={isAuthenticated} name={c.user_name} id={c.id} date={c.date_created} text={c.text} postID={c.postID} key={i} />
+
+          )
           )
         }
 
@@ -121,7 +129,7 @@ export default function ItemPreview() {
 
         <form className="rounded ml-40 w-1/4">
           <div className="mb-4">
-            <input name={'username'} value={formValue.username} onChange={handleChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" type="text" placeholder="Name" />
+            <input name={'user_name'} value={formValue.username} onChange={handleChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" type="text" placeholder="Name" />
           </div>
           <div>
             <textarea name={'text'} value={formValue.text} onChange={handleChange} className="shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="text" type="text" placeholder="Comment" />

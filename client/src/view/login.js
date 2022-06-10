@@ -35,7 +35,6 @@ export default function Login() {
 
     axios.post('http://localhost:4000/api/login/', formValue )
       .then(function (response) { 
-        console.log(response.data);
         auth.login(response.data);
         navigate('/')
 
