@@ -2,16 +2,13 @@ import React, { useState, useContext, useEffect } from 'react'
 import Footer from '../Components/Footer'
 import Header from '../Components/Header'
 import { useParams } from "react-router-dom";
-import { data } from '../bd';
 import Comment from '../Components/Comment';
-import { comments } from '../comments';
-import img from '../img/bgitem.jpg'
 import { FaCheck, FaEdit } from 'react-icons/fa'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Context } from '../context/context';
 import axios from 'axios';
-
+import moment from 'moment'
 
 
 export default function ItemPreview() {
@@ -21,12 +18,14 @@ export default function ItemPreview() {
   const [textEditable, setTextEditable] = useState(false);
   const [data, setData] = useState(null);
   const [comments, setComments] = useState(null);
+  const [whenToUpdate, setwhenToUpdate] = useState(0);
+
   // Form Validation for comment
   const [formValue, setformValue] = useState({
     user_name: '',
     text: '',
-    date_created: '2022/06/10',
-      post_id: id
+    date_created: '',
+    post_id: id
   })
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -46,30 +45,31 @@ export default function ItemPreview() {
           user_name: '',
           text: '',
         })
-        toast.success("Comment added!");
+        toast.success("Comment added!"); 
       })
       .catch(function (error) {
         toast.error(error.message);
         return false
       });
-
-    toast.success("Comment added! Thank you");
   }
 
-  const handleChange = (event) => {
-    // console.log(2345);
+  const handleChange = (e) => {
     setformValue({
       ...formValue,
-      [event.target.name]: event.target.value
+      [e.target.name]: e.target.value,
+      date_created: new Date().toISOString().slice(0, 19).replace('T', ' '),
+      post_id: id
     });
+    console.log(formValue);
   }
 
   useEffect(() => {
-    axios.get(`http://localhost:4000/posts/${id}`).then((res) => setData(res.data[0]));
-    axios.get(`http://localhost:4000/comments/${id}`).then((res) => setComments(res.data))
-  }, [comments]);
-
-console.log(formValue);
+    axios.get(`http://localhost:4000/posts/${id}`).then((res) => setData(res.data[0])); 
+  }, []); 
+ 
+  useEffect(() => {
+    axios.get(`http://localhost:4000/comments/${id}`).then((res) => setComments(res.data)); 
+  }, [formValue]); 
 
   return (
     <>
@@ -96,7 +96,7 @@ console.log(formValue);
 
 
         <p className='text-center font-bold pb-5 text-gold drop-shadow-lg'>
-          {data?.date}
+          {moment(data?.date).format('lll', 'pt')}
         </p>
 
         <p className={(textEditable && 'border') + ' border-red-600 p-3 container mx-auto w-3/4 text-green text-center pb-10'} focus="true" contentEditable={textEditable}  >
@@ -117,7 +117,7 @@ console.log(formValue);
         {
           comments?.map((c, i) => (
 
-            <Comment isadmin={isAuthenticated} name={c.user_name} id={c.id} date={c.date_created} text={c.text} postID={c.postID} key={i} />
+            <Comment useEffDep={formValue} name={c.user_name} id={c.comment_id} date={c.date_created} text={c.text} postID={c.postID} key={i} />
 
           )
           )
@@ -129,10 +129,10 @@ console.log(formValue);
 
         <form className="rounded ml-40 w-1/4">
           <div className="mb-4">
-            <input name={'user_name'} value={formValue.username} onChange={handleChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" type="text" placeholder="Name" />
+            <input name={'user_name'} value={formValue.user_name} onChange={(e) => handleChange(e)} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" type="text" placeholder="Name" />
           </div>
           <div>
-            <textarea name={'text'} value={formValue.text} onChange={handleChange} className="shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="text" type="text" placeholder="Comment" />
+            <textarea name={'text'} value={formValue.text} onChange={(e) => handleChange(e)} className="shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="text" type="text" placeholder="Comment" />
           </div>
           <div className="flex items-center justify-between pb-5">
             <button onClick={(e) => handleSubmit(e)} className="bg-gold hover:bg-green text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
