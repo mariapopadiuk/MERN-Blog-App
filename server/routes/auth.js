@@ -1,6 +1,5 @@
 const router = require('express').Router();
-const getLogintAction = require('../action/auth/login.action')
-
+const getLogintAction = require('../action/auth/login.action') 
 
 router.post('/login', getLogintAction);
 

@@ -1,15 +1,18 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import Footer from '../Components/Footer'
 import Header from '../Components/Header'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import axios from 'axios'
+import { Context } from '../context/context';
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
-
+  const navigate = useNavigate();
+  const auth = useContext(Context)
   const [formValue, setformValue] = useState({
-    username: '',
-    password: '',
+    email: 'mpopadiuk13@gmail.com',
+    password: 'password',
   })
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -28,19 +31,24 @@ export default function Login() {
       toast.error("Please enter you password!");
 
       return false
-    }
+    } 
 
-    if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/.test(formValue.password)) {
-      toast.error("Invalid password!");
+    axios.post('http://localhost:4000/api/login/', formValue )
+      .then(function (response) { 
+        console.log(response.data);
+        auth.login(response.data);
+        navigate('/')
 
-      return false
-    }
-    setformValue({
-      email: '',
-      password: '',
-    })
-
-    toast.success("success!");
+        setformValue({
+          email: '',
+          password: '',
+        })
+        toast.success("success!");
+      })
+      .catch(function (error) {
+        toast.error(error.message);
+        return false
+      });
   }
 
 

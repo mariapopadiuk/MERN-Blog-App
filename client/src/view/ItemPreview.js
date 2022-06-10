@@ -16,9 +16,9 @@ export default function ItemPreview() {
   let { id } = useParams();
 
   const [isAdmin, setIsAdmin] = useState(false);
-
   const [titleEditable, setTitleEditable] = useState(false);
   const [textEditable, setTextEditable] = useState(false);
+  
 
   
 // Form Validation
