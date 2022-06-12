@@ -17,6 +17,7 @@ export default function Main() {
     'authorization': `Bearer ${token}`
   };
 
+  //Delete POST
   function deletePost(id){
     axios.delete(`http://localhost:4000/posts/delete-post/${id}`,
       {
