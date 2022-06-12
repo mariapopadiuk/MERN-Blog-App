@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { FaTrash } from "react-icons/fa";
 import { Context } from '../context/context';
 
-export default function Item( {img, title, text, id, date}) {
+export default function Item( {img, title, text, id, date, handleDelete}) {
 
   const { isAuthenticated } = useContext(Context);  
   return (
@@ -28,7 +28,7 @@ export default function Item( {img, title, text, id, date}) {
             {
             isAuthenticated
             &&
-          <a href="#" className='pr-3 text-gold hover:text-red-600 transition'><FaTrash /></a >
+            <span className='pr-3 text-gold hover:text-red-600 transition cursor-pointer' onClick={() => handleDelete(id) }><FaTrash /></span >
 
           }
           </span>

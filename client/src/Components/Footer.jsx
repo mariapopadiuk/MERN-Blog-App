@@ -3,10 +3,8 @@ import { FaInstagram } from "react-icons/fa";
 import { FaTwitter} from "react-icons/fa";
 import { FaGithub } from "react-icons/fa";
 
-
 export default function Footer() {
   return (
-    <div>
       <footer className='container font-serif px-6 bg-green flex mx-auto p-2 flex-wrap justify-between '>
         <div className='text-2xl text-gold ml-10'>
           <a href="">MERN</a>
@@ -22,6 +20,5 @@ export default function Footer() {
           <a href="https://github.com/mariapopadiuk" className='mr-10'><FaGithub /></a >
         </div>
       </footer>
-    </div>
   )
 }
