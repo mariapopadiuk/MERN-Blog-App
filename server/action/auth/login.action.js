@@ -15,25 +15,29 @@ module.exports = async (req, res) => {
       `select id, email, password from users where email="${email}"`,
       function (error, result) {
         if (error) throw error;
+        if (result.length === 0) {
+          res.status(400).send("Bad credentials"); 
+        } else {
+          const passwordInDB = result[0].password;
+          bcrypt.compare(password, passwordInDB, function (err, result) {
+            if (!result) {
+              res.status(400).send("Bad credentials");
+            }
+          });
 
-        const passwordInDB = result[0].password;
-        bcrypt.compare(password, passwordInDB, function (err, result) {
-          if (!result) {
-            res.status(400).send("Bad credentials");
-          }
-        });
-
-        const accessToken = jwt.sign(
-          { username: email },
-          process.env.JWT_SECRET,
-          {
-            expiresIn: "1m",
-          }
-        );
-        res.send({
-          accessToken,
-          userId: result[0].id,
-        });
+          const accessToken = jwt.sign(
+            { username: email },
+            process.env.JWT_SECRET,
+            {
+              expiresIn: "24h",
+            }
+          );
+          res.send({
+            accessToken,
+            userId: result[0].id,
+          });
+        }
+       
       }
     );
   } catch (e) {
