@@ -9,15 +9,13 @@ import { useNavigate } from "react-router-dom";
 
 export default function AddItem() {
 
-  const auth = useContext(Context)
-  const { token } = useContext(Context);
-  //const [whenToUpdate, setwhenToUpdate] = useState(0);
+  const { token, userId, logout } = useContext(Context);
   const headers = {
     'authorization': `Bearer ${token}`
   };
   const navigate = useNavigate();
 
-  //Validation form
+  //Form values
   const [formValue, setformValue] = useState({
     user_id: '',
     img_url: '',
@@ -25,6 +23,7 @@ export default function AddItem() {
     text: '',
     date_created: ''
   })
+  //Form validation
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -35,18 +34,15 @@ export default function AddItem() {
 
     if (formValue.title === '') {
       toast.error("Please enter post title!");
-
       return false
     }
 
     if (formValue.text === '') {
       toast.error("Please enter post text!");
-
       return false
     }
 
     axios.post('http://localhost:4000/posts/add-post',
-
         formValue,
         {headers}
       
@@ -64,9 +60,14 @@ export default function AddItem() {
         toast.success("Post added!");
 
       })
-      .catch(function (error) {
-        toast.error(error.message);
-        return false
+      .catch((e) => {
+        if (e.response.status === 403) {
+          logout();
+          toast.error("Your sassion has been expired you will be redirect to the login page");
+          setTimeout(() => {
+            navigate('/')
+          }, "5000")
+        }
       });
 
   }
@@ -76,7 +77,7 @@ export default function AddItem() {
       ...formValue,
       [event.target.name]: event.target.value,
       date_created: new Date().toISOString().slice(0, 19).replace('T', ' '),
-      user_id: '2'
+      user_id: userId
 
     });
   }
@@ -102,7 +103,7 @@ export default function AddItem() {
 
             <div className="form-group mb-6">
               <label className="form-label inline-block mb-2 text-green">Text*</label>
-              <input name={'text'} value={formValue.text} onChange={handleChange} type="text" className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out  m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" placeholder="Enter your content" />
+              <textarea name={'text'} value={formValue.text} onChange={handleChange} type="text" className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out  m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" placeholder="Enter your content" />
             </div>
             <div className='text-center'>
               <button onClick={(e) => handleSubmit(e)} type="submit" className="px-6 py-2.5 bg-green text-white font-bold text-sm leading-tight tracking-wider uppercase rounded shadow-md hover:bg-gold hover:shadow-lg focus:bg-gold focus:shadow-lg  active:bg-gold active:shadow-lg transition duration-150 ease-in-out">Add</button>

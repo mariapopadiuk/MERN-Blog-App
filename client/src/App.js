@@ -8,11 +8,11 @@ import { useAuth } from './hook/hook';
 
 function App() {
 
-  const { token, logout, login } = useAuth();
+  const { token, logout, login, userId } = useAuth();
   const isAuthenticated = !!token;
   return (
     <BrowserRouter>
-      <Context.Provider value={{ token, logout, login, isAuthenticated }}>
+      <Context.Provider value={{ token, logout, login, isAuthenticated, userId }}>
         <Routes>
           <Route exact path="/" element={<Main />} />
           <Route path="/login" element={<Login />} />

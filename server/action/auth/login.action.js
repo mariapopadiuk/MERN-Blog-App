@@ -2,35 +2,37 @@ const connection = require('../../services/db');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-
 module.exports = async (req, res) => {
 
   try {
-    const email = req.body.email;//GET EMAIL FROM BODY
-    const passwordFromClient = req.body.password;//GET PASSWORD FROM BODY
-    if (!(email || passwordFromClient)) {// IF MISSED EMAIl OR PASSWORD RETURN ERROR STOP PROGRAM
+    //GET EMAIL AND PASSWORD FROM BODY
+    const { email, password } = req.body;
+    // IF MISSED EMAIl OR PASSWORD RETURN ERROR STOP PROGRAM
+    if (!(email || passwordFromClient)) {
       res.status(400).send("All input required");
     }
-
     connection.query(
-      `select email, password from users where email="${email}"`,
+      //CHECK IN DB IF USER EXISTS
+      `select id, email, password from users where email="${email}"`,
       function (error, result) {
-        if (error) {
-          throw error;// IF SQL WITH ERROR STOP PROGRAM
-        }
+        if (error) throw error;
+
         const passwordInDB = result[0].password;
-        bcrypt.compare(passwordFromClient, passwordInDB, function (err, result) {
+        bcrypt.compare(password, passwordInDB, function (err, result) {
           if (!result) {
             res.status(400).send("Bad credentials");
           }
         });
+
+        const accessToken = jwt.sign({ username: email }, process.env.JWT_SECRET,
+          {
+            expiresIn: "1m",
+          }
+        );
+        res.send({
+          accessToken, userId: result[0].id
+        })
       });
-    const accessToken = jwt.sign({ username: email }, process.env.JWT_SECRET,
-      {
-        expiresIn: "1h",
-      }
-    );
-    res.send(accessToken)
   } catch (e) {
     res.json({ err: e })
   }

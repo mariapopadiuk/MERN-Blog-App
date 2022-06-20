@@ -8,28 +8,26 @@ import { Context } from '../context/context';
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+
   const navigate = useNavigate();
   const auth = useContext(Context)
   const [formValue, setformValue] = useState({
     email: 'mpopadiuk13@gmail.com',
     password: 'password',
   })
+
   const handleSubmit = (event) => {
     event.preventDefault();
     if (formValue.email === '') {
       toast.error("Please enter your email!");
       return false
     }
-
     if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(formValue.email)) {
       toast.error("Invalid email!");
-
       return false
     }
-
     if (formValue.password === '') {
       toast.error("Please enter you password!");
-
       return false
     } 
 
@@ -37,7 +35,6 @@ export default function Login() {
       .then(function (response) { 
         auth.login(response.data);
         navigate('/')
-
         setformValue({
           email: '',
           password: '',
@@ -46,10 +43,8 @@ export default function Login() {
       })
       .catch(function (error) {
         toast.error(error.message);
-        return false
       });
   }
-
 
   const handleChange = (event) => {
     setformValue({

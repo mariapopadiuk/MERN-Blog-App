@@ -9,7 +9,7 @@ const authenticateJWT = require('../security/index');
 router.get('/', getPostsAction);
 router.get('/:id', getPostAction);
 router.post('/add-post', authenticateJWT, addPostAction);
-router.put('/update-post/:id', authenticateJWT, updatePostAction);
+router.patch('/update-post/:id', authenticateJWT, updatePostAction);
 router.delete('/delete-post/:id', authenticateJWT, deletePostAction);
 
 module.exports = router;

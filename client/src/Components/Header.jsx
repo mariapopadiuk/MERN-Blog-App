@@ -8,7 +8,7 @@ export default function Header() {
   return (
     <header className='container font-serif px-6 bg-green flex mx-auto p-2 flex-wrap justify-between '>
       <div className='ml-10 text-2xl text-gold'>
-        <a href="">MERN</a>
+        <Link to="/">MERN</Link >
       </div>
 
       <div className='text-base text-white flex items-center '>

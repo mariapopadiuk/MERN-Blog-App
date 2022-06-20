@@ -7,16 +7,18 @@ import { FaCheck, FaEdit } from 'react-icons/fa'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Context } from '../context/context';
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import moment from 'moment'
 
 export default function ItemPreview() {
   let { id } = useParams();
-  const { isAuthenticated, token } = useContext(Context);
+  const { isAuthenticated, token, logout } = useContext(Context);
   const [postEditable, setPostEditable] = useState(false);
   const [data, setData] = useState(null);
   const [comments, setComments] = useState(null);
   const [whenToUpdate, setwhenToUpdate] = useState(0);
+  const navigate = useNavigate();
   const headers = {
     'authorization': `Bearer ${token}`
   };
@@ -61,6 +63,8 @@ export default function ItemPreview() {
       post_id: id
     });
   }
+
+  
   // UPDATE POST
   function updatePost() {
     const updatedTitle = document.querySelector('.post-title').innerText;
@@ -72,15 +76,21 @@ export default function ItemPreview() {
         title: updatedTitle,
         text: updatedText
       },
-      { headers }).then((res) => {
-        console.log(res);
+      { headers }).then((res) => { 
         if (res.status === 200) {
           toast.success("Post updated");
           setPostEditable(false)
           setwhenToUpdate(whenToUpdate + 1)
-        } else {
-          toast.error("Something went wrong!");
+        } 
+      }).catch((e) => {
+        if (e.response.status === 403) {
+          logout();
+          toast.error("Your sassion has been expired you will be redirect to the login page");
+          setTimeout(() => {
+            navigate('/')
+          }, "5000")
         }
+
       })
   }
 
@@ -94,16 +104,23 @@ export default function ItemPreview() {
         if (res.status === 200) {
           setwhenToUpdate(whenToUpdate + 1)
           toast.success("Comment deleted");
-        } else {
-          toast.error("Something went wrong!");
+        } 
+      }).catch((e) => {
+        if(e.response.status === 403){
+          logout();
+          toast.error("Your sassion has been expired you will be redirect to the login page");
+          setTimeout(() => {
+            navigate('/')
+          }, "5000")
         }
+
       })
   }
 
   // GET POST
   useEffect(() => {
     axios.get(`http://localhost:4000/posts/${id}`).then((res) => setData(res.data[0]));
-  }, []);
+  });
 
   // GET COMMENTS
   useEffect(() => {
