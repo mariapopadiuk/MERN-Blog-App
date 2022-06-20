@@ -11,8 +11,8 @@ export default function Login() {
   const navigate = useNavigate();
   const auth = useContext(Context);
   const [formValue, setformValue] = useState({
-    email: "mpopadiuk13@gmail.com",
-    password: "password",
+    email: "",
+    password: "",
   });
 
   const handleSubmit = (event) => {
@@ -33,7 +33,7 @@ export default function Login() {
     }
 
     axios
-      .post("http://localhost:4000/api/login/", formValue)
+      .post(`http://localhost:4000/api/login/`, formValue)
       .then(function (response) {
         auth.login(response.data);
         navigate("/");
@@ -44,7 +44,11 @@ export default function Login() {
         toast.success("success!");
       })
       .catch(function (error) {
-        toast.error(error.message);
+        if (error.response.status === 400) {
+          toast.error("User name or password invalid, or user doesn't exists!");
+        } else {
+          toast.error("Someting went wrong, please try again later!");
+        } 
       });
   };
 

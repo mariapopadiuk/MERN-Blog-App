@@ -11,7 +11,7 @@ export const useAuth = () => {
     setUserId(jwtToken.userId);
     localStorage.setItem("token", JSON.stringify(jwtToken));
     if (!localStorage.getItem("whenToLogOut")) {
-      localStorage.setItem("whenToLogOut", timestamp + 60);
+      localStorage.setItem("whenToLogOut", timestamp + 86400);
     }
   }, []);
 
