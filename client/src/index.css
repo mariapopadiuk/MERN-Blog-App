@@ -1,12 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
-.font-serif {
-  font-family: 'Playfair Display';
-}  
 
-.bg-bgImage{
+.font-serif {
+  font-family: "Playfair Display";
+}
+
+.bg-bgImage {
   background-image: url("img/bgimg.png");
   background-repeat: no-repeat;
   background-size: cover;
@@ -16,11 +16,11 @@
 .bg-bgImageLogin {
   background-image: url("img/bgimg.png");
   background-size: cover;
-background-position: right center;
+  background-position: right center;
 }
 
 .bg-additem {
   background-image: url("img/bgitem.jpg");
-    /* background-size: cover; */
-      background-position: right center;
+  /* background-size: cover; */
+  background-position: right center;
 }
