@@ -1,13 +1,16 @@
-const connection = require('../../services/db')
+const connection = require("../../services/db");
 
 module.exports = async (req, res) => {
-  const id = req.params.id
+  const id = req.params.id;
   try {
-    connection.query(`select * from comments where post_id=${id}`, function (error, result) {
-      if (error) throw error;
-      res.send(result)
-    });
+    connection.query(
+      `select * from comments where post_id=${id}`,
+      function (error, result) {
+        if (error) throw error;
+        res.send(result);
+      }
+    );
   } catch (e) {
-    res.json({ error: e })
+    res.json({ error: e });
   }
 };

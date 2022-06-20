@@ -1,9 +1,8 @@
-const connection = require('../../services/db');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+const connection = require("../../services/db");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 module.exports = async (req, res) => {
-
   try {
     //GET EMAIL AND PASSWORD FROM BODY
     const { email, password } = req.body;
@@ -24,16 +23,20 @@ module.exports = async (req, res) => {
           }
         });
 
-        const accessToken = jwt.sign({ username: email }, process.env.JWT_SECRET,
+        const accessToken = jwt.sign(
+          { username: email },
+          process.env.JWT_SECRET,
           {
             expiresIn: "1m",
           }
         );
         res.send({
-          accessToken, userId: result[0].id
-        })
-      });
+          accessToken,
+          userId: result[0].id,
+        });
+      }
+    );
   } catch (e) {
-    res.json({ err: e })
+    res.json({ err: e });
   }
 };
