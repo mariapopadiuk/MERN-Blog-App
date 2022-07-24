@@ -6,7 +6,6 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { Context } from "../context/context";
 import { useNavigate } from "react-router-dom";
-import { apiUrl } from '../utils';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -34,7 +33,7 @@ export default function Login() {
     }
 
     axios
-      .post(`${apiUrl}/api/login/`, formValue)
+      .post(`/api/login/`, formValue)
       .then(function (response) {
         auth.login(response.data);
         navigate("/");

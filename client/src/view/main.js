@@ -9,7 +9,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Container from "../Components/Container";
 import { useNavigate } from "react-router-dom";
-import {apiUrl} from '../utils';
 
 export default function Main() {
   const [data, setData] = useState([]);
@@ -22,7 +21,7 @@ export default function Main() {
   //Delete POST
   function deletePost(id) {
     axios
-      .delete(`${apiUrl}/posts/delete-post/${id}`, {
+      .delete(`/api/posts/delete-post/${id}`, {
         headers,
       })
       .then((res) => {
@@ -45,7 +44,7 @@ export default function Main() {
   }
 
   useEffect(() => {
-    axios.get(`${apiUrl}/posts/`).then((res) => setData(res.data));
+    axios.get(`/api/posts/`).then((res) => setData(res.data));
   }, [whenToUpdate]);
 
   return (

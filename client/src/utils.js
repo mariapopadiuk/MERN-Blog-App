@@ -1,1 +1,0 @@
-export const apiUrl = 'https:popadiukmaria.dev';
