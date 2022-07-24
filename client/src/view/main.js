@@ -9,6 +9,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Container from "../Components/Container";
 import { useNavigate } from "react-router-dom";
+import {apiUrl} from '../utils';
 
 export default function Main() {
   const [data, setData] = useState([]);
@@ -18,11 +19,10 @@ export default function Main() {
   const headers = {
     authorization: `Bearer ${token}`,
   };
-
   //Delete POST
   function deletePost(id) {
     axios
-      .delete(`http://localhost:4000/posts/delete-post/${id}`, {
+      .delete(`${apiUrl}/posts/delete-post/${id}`, {
         headers,
       })
       .then((res) => {
@@ -35,7 +35,7 @@ export default function Main() {
         if (e.response.status === 403) {
           logout();
           toast.error(
-            "Your sassion has been expired you will be redirect to the login page"
+            "Your session has been expired you will be redirect to the login page"
           );
           setTimeout(() => {
             navigate("/");
@@ -45,7 +45,7 @@ export default function Main() {
   }
 
   useEffect(() => {
-    axios.get("http://localhost:4000/posts/").then((res) => setData(res.data));
+    axios.get(`${apiUrl}/posts/`).then((res) => setData(res.data));
   }, [whenToUpdate]);
 
   return (

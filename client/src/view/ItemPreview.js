@@ -10,6 +10,7 @@ import { Context } from "../context/context";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
+import { apiUrl } from '../utils';
 
 export default function ItemPreview() {
   let { id } = useParams();
@@ -41,7 +42,7 @@ export default function ItemPreview() {
     }
     //ADD COMMENT
     axios
-      .post(`http://localhost:4000/comments/add-comment/${id}`, formValue)
+      .post(`${apiUrl}/comments/add-comment/${id}`, formValue)
       .then(function () {
         setformValue({
           user_name: "",
@@ -76,7 +77,7 @@ export default function ItemPreview() {
     }
     axios
       .patch(
-        `http://localhost:4000/posts/update-post/${id}`,
+        `${apiUrl}/posts/update-post/${id}`,
         {
           user_id: 2,
           title: updatedTitle,
@@ -107,7 +108,7 @@ export default function ItemPreview() {
   // DELETE COMMENT
   function deleteComment(comentId) {
     axios
-      .delete("http://localhost:4000/comments/delete-comment/", {
+      .delete(`${apiUrl}/comments/delete-comment/`, {
         data: { comment_id: comentId },
         headers,
       })
@@ -133,14 +134,14 @@ export default function ItemPreview() {
   // GET POST
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/posts/${id}`)
+      .get(`${apiUrl}/posts/${id}`)
       .then((res) => setData(res.data[0]));
   });
 
   // GET COMMENTS
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/comments/${id}`)
+      .get(`${apiUrl}/comments/${id}`)
       .then((res) => setComments(res.data));
   }, [whenToUpdate]);
 

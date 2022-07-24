@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { Context } from "../context/context";
 import { useNavigate } from "react-router-dom";
+import { apiUrl } from '../utils';
 
 export default function AddItem() {
   const { token, userId, logout } = useContext(Context);
@@ -42,7 +43,7 @@ export default function AddItem() {
     }
 
     axios
-      .post("http://localhost:4000/posts/add-post", formValue, { headers })
+      .post(`${apiUrl}/posts/add-post`, formValue, { headers })
       .then(function (response) {
         navigate("/");
 

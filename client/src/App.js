@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AddItem from "./view/AddItem";
 import { Context } from "./context/context";
 import { useAuth } from "./hook/hook";
+import PageNotFound from "./view/PageNotFound";
 
 function App() {
   const { token, logout, login, userId } = useAuth();
@@ -19,6 +20,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/itempreview/id=:id" element={<ItemPreview />} />
           <Route path="/addnewitem" element={<AddItem />} />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </Context.Provider>
     </BrowserRouter>
