@@ -41,7 +41,7 @@ export default function ItemPreview() {
     }
     //ADD COMMENT
     axios
-      .post(`/api/comments/add-comment/${id}`, formValue)
+      .post(`https://popadiukmaria.dev/api/comments/add-comment/${id}`, formValue)
       .then(function () {
         setformValue({
           user_name: "",
@@ -76,7 +76,7 @@ export default function ItemPreview() {
     }
     axios
       .patch(
-        `/api/posts/update-post/${id}`,
+        `https://popadiukmaria.dev/api/posts/update-post/${id}`,
         {
           user_id: 2,
           title: updatedTitle,
@@ -107,7 +107,7 @@ export default function ItemPreview() {
   // DELETE COMMENT
   function deleteComment(comentId) {
     axios
-      .delete(`/api/comments/delete-comment/`, {
+      .delete(`https://popadiukmaria.dev/api/comments/delete-comment/`, {
         data: { comment_id: comentId },
         headers,
       })
@@ -133,14 +133,14 @@ export default function ItemPreview() {
   // GET POST
   useEffect(() => {
     axios
-      .get(`/api/posts/${id}`)
+      .get(`https://popadiukmaria.dev/api/posts/${id}`)
       .then((res) => setData(res.data[0]));
   }, []);
 
   // GET COMMENTS
   useEffect(() => {
     axios
-      .get(`/api/comments/${id}`)
+      .get(`https://popadiukmaria.dev/api/comments/${id}`)
       .then((res) => setComments(res.data));
   }, [whenToUpdate]);
 

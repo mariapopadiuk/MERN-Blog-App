@@ -42,7 +42,7 @@ export default function AddItem() {
     }
 
     axios
-      .post(`/api/posts/add-post`, formValue, { headers })
+      .post(`https://popadiukmaria.dev/api/posts/add-post`, formValue, { headers })
       .then(function (response) {
         navigate("/");
 

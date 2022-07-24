@@ -1,5 +1,5 @@
 const connection = require("../../services/db");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 module.exports = async (req, res) => {

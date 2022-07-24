@@ -21,7 +21,7 @@ export default function Main() {
   //Delete POST
   function deletePost(id) {
     axios
-      .delete(`/api/posts/delete-post/${id}`, {
+      .delete(`https://popadiukmaria.dev/api/posts/delete-post/${id}`, {
         headers,
       })
       .then((res) => {
@@ -44,7 +44,7 @@ export default function Main() {
   }
 
   useEffect(() => {
-    axios.get(`/api/posts/`).then((res) => setData(res.data));
+    axios.get(`https://popadiukmaria.dev/api/posts/`).then((res) => setData(res.data));
   }, [whenToUpdate]);
 
   return (

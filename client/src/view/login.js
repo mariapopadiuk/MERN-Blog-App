@@ -33,7 +33,7 @@ export default function Login() {
     }
 
     axios
-      .post(`/api/login/`, formValue)
+      .post(`https://popadiukmaria.dev/api/login/`, formValue)
       .then(function (response) {
         auth.login(response.data);
         navigate("/");
